@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class HackatonAutomatizace {
@@ -68,6 +69,19 @@ public class HackatonAutomatizace {
         Assertions.assertEquals(URL_APLIKACE, prohlizec.getCurrentUrl());
     }
 
+    @Test
+    public void everyUserHasAccessToFollowingFeaturesWhenOnAuthenticationPage() {
+        prohlizec.navigate().to(URL_APLIKACE);
+        WebElement odkazSignIn = prohlizec.findElement(By.xpath("//div[7]/ul/li/a"));
+        odkazSignIn.click();
+        WebElement tlacitkoCreateAnAccount = prohlizec.findElement(By.id("SubmitCreate"));
+        Assertions.assertEquals("Create an account", tlacitkoCreateAnAccount.getText());
+        WebElement tlacitkoSignIn;
+        tlacitkoSignIn = prohlizec.findElement(By.id("SubmitLogin"));
+        Assertions.assertEquals("Sign in", tlacitkoSignIn.getText());
+        WebElement odkazForgotYourPassword = prohlizec.findElement(By.xpath("//div[2]/form/div/p[1]/a"));
+        Assertions.assertEquals("Forgot your password?", odkazForgotYourPassword.getText());
+    }
 
     @AfterEach
     public void tearDown() {
